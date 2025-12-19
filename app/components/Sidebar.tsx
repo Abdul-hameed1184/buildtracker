@@ -1,0 +1,190 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import {
+  ChevronDown,
+  LayoutDashboard,
+  CheckSquare,
+  Users,
+  BookOpen,
+  Link2,
+  Plug,
+  Boxes,
+  BarChart3,
+  Plus,
+  Menu,
+  X,
+} from "lucide-react";
+import { Images } from "@/public";
+
+const navItems = [
+  { label: "Dashboard", icon: LayoutDashboard, active: true },
+  { label: "Tasks", icon: CheckSquare },
+  { label: "Team", icon: Users },
+  { label: "Wiki", icon: BookOpen },
+  { label: "Quick Links", icon: Link2 },
+  { label: "Integrations", icon: Plug },
+  { label: "Modules", icon: Boxes },
+  { label: "Reports", icon: BarChart3 },
+];
+
+export default function Sidebar() {
+  const [collapsed, setCollapsed] = useState(false);
+  const [workspaceOpen, setWorkspaceOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <>
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setMobileOpen(true)}
+        className="fixed top-4 left-4 z-50 lg:hidden bg-white p-2 rounded-lg shadow-md"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
+
+      {/* Overlay */}
+      {mobileOpen && (
+        <div
+          onClick={() => setMobileOpen(false)}
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+        />
+      )}
+
+      <aside
+        className={`h-screen bg-background p-4 fixed lg:relative z-50 transition-transform duration-300 ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        }`}
+      >
+        {/* Grey container */}
+        <div
+          className={`h-full bg-muted rounded-2xl transition-all duration-300 flex flex-col justify-between ${
+            collapsed ? "w-16" : "w-72"
+          }`}
+        >
+          <div className={`${collapsed ? "px-2 pt-3" : "px-4 pt-4"}`}>
+            {/* Logo */}
+            <div className="flex items-center justify-between mb-6">
+              <button
+                onClick={() => setCollapsed((v) => !v)}
+                className={`flex items-center ${collapsed ? "justify-center" : "gap-2"} flex-1`}
+              >
+                <Image
+                  src={Images.logo}
+                  alt="Logo"
+                  priority
+                  className="w-8 h-8"
+                />
+                {!collapsed && (
+                  <span className="font-semibold text-base text-foreground">
+                    BuildTracker
+                  </span>
+                )}
+              </button>
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="lg:hidden p-1"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Workspace Box */}
+            {!collapsed && (
+              <div className="mb-6 rounded-xl border border-sidebar-border bg-card overflow-hidden">
+                <button
+                  onClick={() => setWorkspaceOpen((v) => !v)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-left hover:bg-sidebar-accent"
+                >
+                  <div>
+                    <p className="text-sm font-medium text-foreground py-1">
+                      Paystack’s Workspace
+                    </p>
+                    <p className="text-xs text-muted-foreground">Owner</p>
+                  </div>
+                  <ChevronDown
+                    className={`w-4 h-4 text-muted-foreground transition-transform ${
+                      workspaceOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                <div className="border-t border-border">
+                  <button className="flex w-full items-center gap-2 px-3 py-3 text-sm hover:bg-sidebar-accent">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-md border border-sidebar-border">
+                      <Plus className="w-4 h-4" />
+                    </span>
+                    New Workspace
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Divider */}
+            {!collapsed && (
+              <div className="border-t border-sidebar-border -mx-4 mb-4" />
+            )}
+
+            {/* Navigation */}
+            <nav className="space-y-1">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.label}
+                    className={`w-full flex items-center rounded-xl transition-colors ${
+                      collapsed ? "justify-center p-2" : "gap-3 px-3 py-2"
+                    } ${
+                      item.active
+                        ? "text-sidebar-primary font-semibold"
+                        : "text-sidebar-foreground hover:bg-sidebar-accent"
+                    }`}
+                  >
+                    <Icon className={`${collapsed ? "w-6 h-6" : "w-5 h-5"}`} />
+                    {!collapsed && (
+                      <span className="text-sm">{item.label}</span>
+                    )}
+                  </button>
+                );
+              })}
+            </nav>
+          </div>
+
+          {/* Bottom Card */}
+          {!collapsed && (
+            <div className="p-4">
+              <div
+                className="rounded-2xl bg-blue-500/50 text-white p-6 relative space-y-7 overflow-hidden"
+                style={{
+                  backgroundImage: `url(${Images.desktopbg.src || Images.desktopbg})`,
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+                  minHeight: "6rem",
+                }}
+              >
+                <div className="absolute inset-0 rounded-2xl" />
+                <div className="space-y-3 relative z-10">
+                  <div className="h-6 w-6 bg-white border rounded-full p-0.5">
+                    <Image src={Images.logo} alt="Logo" priority />
+                  </div>
+
+                  <p className="font-semibold text-xl">
+                    Download our Mobile App
+                  </p>
+                  <p className="text-xs opacity-80 mb-3">
+                    Manage your team effortlessly
+                  </p>
+                </div>
+                <button className="w-full rounded-full bg-background text-primary py-2 text-sm font-medium">
+                  Download
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </aside>
+    </>
+  );
+}
