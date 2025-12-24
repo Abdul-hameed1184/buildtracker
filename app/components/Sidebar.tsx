@@ -17,22 +17,25 @@ import {
   X,
 } from "lucide-react";
 import { Images } from "@/public";
+import { useRouter, usePathname } from "next/navigation";
 
 const navItems = [
-  { label: "Dashboard", icon: LayoutDashboard, active: true },
-  { label: "Tasks", icon: CheckSquare },
-  { label: "Team", icon: Users },
-  { label: "Wiki", icon: BookOpen },
-  { label: "Quick Links", icon: Link2 },
-  { label: "Integrations", icon: Plug },
-  { label: "Modules", icon: Boxes },
-  { label: "Reports", icon: BarChart3 },
+  { label: "Dashboard", icon: LayoutDashboard, link: "/home" },
+  { label: "Tasks", icon: CheckSquare, link: "/tasks" },
+  { label: "Team", icon: Users, link: "/team" },
+  { label: "Wiki", icon: BookOpen, link: "/wiki" },
+  { label: "Quick Links", icon: Link2, link: "/quick-links" },
+  { label: "Integrations", icon: Plug, link: "/integrations" },
+  { label: "Modules", icon: Boxes, link: "/modules" },
+  { label: "Reports", icon: BarChart3, link: "/reports" },
 ];
-
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const [workspaceOpen, setWorkspaceOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <>
@@ -127,21 +130,33 @@ export default function Sidebar() {
             )}
 
             {/* Navigation */}
+
             <nav className="space-y-1">
               {navItems.map((item) => {
                 const Icon = item.icon;
+                const isActive = pathname === item.link;
+
                 return (
                   <button
                     key={item.label}
+                    onClick={() => {
+                      router.push(item.link);
+                      setMobileOpen(false);
+                    }}
                     className={`w-full flex items-center rounded-xl transition-colors ${
                       collapsed ? "justify-center p-2" : "gap-3 px-3 py-2"
                     } ${
-                      item.active
-                        ? "text-sidebar-primary font-semibold"
-                        : "text-sidebar-foreground hover:bg-sidebar-accent"
+                      isActive
+                        ? "font-semibold text-foreground"
+                        : "text-muted-foreground"
                     }`}
                   >
-                    <Icon className={`${collapsed ? "w-6 h-6" : "w-5 h-5"}`} />
+                    <Icon
+                      className={`${collapsed ? "w-6 h-6" : "w-5 h-5"} ${
+                        isActive ? "text-blue-600" : "text-muted-foreground"
+                      }`}
+                    />
+
                     {!collapsed && (
                       <span className="text-sm">{item.label}</span>
                     )}
