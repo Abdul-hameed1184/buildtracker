@@ -42,9 +42,9 @@ export default function Sidebar() {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="fixed top-4 left-4 z-50 lg:hidden bg-white p-2 rounded-lg shadow-md"
+        className="fixed top-4 left-4 z-50 lg:hidden bg-card p-2 rounded-lg shadow-md border border-border"
       >
-        <Menu className="w-6 h-6" />
+        <Menu className="w-6 h-6 text-foreground" />
       </button>
 
       {/* Overlay */}
@@ -56,15 +56,13 @@ export default function Sidebar() {
       )}
 
       <aside
-        className={`h-screen bg-background p-4 fixed lg:relative z-50 transition-transform duration-300 ${
-          mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        }`}
+        className={`h-screen bg-background p-4 fixed lg:relative z-50 transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+          }`}
       >
         {/* Grey container */}
         <div
-          className={`h-full bg-muted rounded-2xl transition-all duration-300 flex flex-col justify-between ${
-            collapsed ? "w-16" : "w-72"
-          }`}
+          className={`h-full bg-muted rounded-2xl transition-all duration-300 flex flex-col justify-between ${collapsed ? "w-16" : "w-72"
+            }`}
         >
           <div className={`${collapsed ? "px-2 pt-3" : "px-4 pt-4"}`}>
             {/* Logo */}
@@ -107,9 +105,8 @@ export default function Sidebar() {
                     <p className="text-xs text-muted-foreground">Owner</p>
                   </div>
                   <ChevronDown
-                    className={`w-4 h-4 text-muted-foreground transition-transform ${
-                      workspaceOpen ? "rotate-180" : ""
-                    }`}
+                    className={`w-4 h-4 text-muted-foreground transition-transform ${workspaceOpen ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
@@ -143,18 +140,15 @@ export default function Sidebar() {
                       router.push(item.link);
                       setMobileOpen(false);
                     }}
-                    className={`w-full flex items-center rounded-xl transition-colors ${
-                      collapsed ? "justify-center p-2" : "gap-3 px-3 py-2"
-                    } ${
-                      isActive
+                    className={`w-full flex items-center rounded-xl transition-colors ${collapsed ? "justify-center p-2" : "gap-3 px-3 py-2"
+                      } ${isActive
                         ? "font-semibold text-foreground"
                         : "text-muted-foreground"
-                    }`}
+                      }`}
                   >
                     <Icon
-                      className={`${collapsed ? "w-6 h-6" : "w-5 h-5"} ${
-                        isActive ? "text-blue-600" : "text-muted-foreground"
-                      }`}
+                      className={`${collapsed ? "w-6 h-6" : "w-5 h-5"} ${isActive ? "text-blue-600" : "text-muted-foreground"
+                        }`}
                     />
 
                     {!collapsed && (

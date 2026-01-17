@@ -213,34 +213,49 @@ function StatCard({ title, value, label, icon }: { title: string; value: string;
     <div className="rounded-2xl bg-background p-4 flex flex-col justify-between space-y-4">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium">{title}</span>
-        <div className="w-9 h-9  rounded-full border  flex items-center justify-center">
+        <div className="w-9 h-9  rounded-full border border-muted-foreground  flex items-center justify-center">
           {icon}
         </div>
       </div>
-        <p className="text-3xl font-semibold">{value}</p>
-        <p className="text-sm text-primary">{label}</p>
+      <p className="text-3xl font-semibold">{value}</p>
+      <p className="text-sm text-primary">{label}</p>
     </div>
   );
 }
 
 function TaskRow({ name, task, status }: { name: string; task: string; status: string }) {
+  const getStatusStyles = (status: string) => {
+    switch (status) {
+      case 'Completed':
+        return 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20'
+      case 'Pending':
+        return 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-500/10 dark:text-rose-400 dark:border-rose-500/20'
+      case 'In Progress':
+        return 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20'
+      default:
+        return 'bg-muted text-muted-foreground border-border'
+    }
+  }
+
   return (
     <div className="flex items-center justify-between py-3  last:border-none">
       <div className="flex items-center gap-3">
         <div className="relative h-8 w-8 md:h-12 md:w-12 rounded-full overflow-hidden border border-border flex-shrink-0">
-                      <Image
-                        src={Images.user}
-                        alt="User avatar"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+          <Image
+            src={Images.user}
+            alt="User avatar"
+            fill
+            className="object-cover"
+          />
+        </div>
         <div>
           <p className="text-sm font-medium">{name}</p>
           <p className="text-xs text-muted-foreground">Working on: {task}</p>
         </div>
       </div>
-      <span className="text-xs rounded-full border px-2 py-0.5">{status}</span>
+      <span className={`text-xs rounded-md border px-2.5 py-1 font-medium ${getStatusStyles(status)}`}>
+        {status}
+      </span>
     </div>
   );
 }
@@ -254,20 +269,21 @@ function PerformanceLineChart() {
             <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
             <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
           </linearGradient>
-          <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+          {/* <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
             <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
-          </linearGradient>
+          </linearGradient> */}
         </defs>
         <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
         <XAxis dataKey="date" className="text-slate-600 dark:text-slate-400" />
         <YAxis className="text-slate-600 dark:text-slate-400" />
         <Tooltip
           contentStyle={{
-            backgroundColor: "rgba(255, 255, 255, 0.95)",
-            border: "1px solid #e2e8f0",
+            backgroundColor: "hsl(var(--card))",
+            border: "1px solid hsl(var(--border))",
             borderRadius: "8px",
             boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+            color: "hsl(var(--foreground))"
           }}
         />
         <Area
@@ -278,14 +294,7 @@ function PerformanceLineChart() {
           fill="url(#colorCreated)"
           strokeWidth={2}
         />
-        <Area
-          type="monotone"
-          dataKey="completed"
-          stroke="#10b981"
-          fillOpacity={1}
-          fill="url(#colorCompleted)"
-          strokeWidth={2}
-        />
+
       </AreaChart>
     </ResponsiveContainer>
   );
@@ -305,11 +314,11 @@ function StatusDonutChart() {
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
-      <text 
-        x={x} 
-        y={y} 
-        fill="#64748b" 
-        textAnchor={x > cx ? 'start' : 'end'} 
+      <text
+        x={x}
+        y={y}
+        fill="#64748b"
+        textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline="central"
         fontSize={12}
         fontWeight={500}
@@ -352,10 +361,10 @@ function Priority({ label, value, percentage, color }: { label: string; value: s
         <div className={`w-2 h-2 rounded-full ${color.replace('text-', 'bg-')}`} />
         <span className="text-sm font-medium">{label}</span>
       </div>
-          <div>
-      <p className="text-sm text-muted-foreground mb-1">{percentage}</p>
-      <p className="text-4xl font-semibold">{value}</p>
-          </div>
+      <div>
+        <p className="text-sm text-muted-foreground mb-1">{percentage}</p>
+        <p className="text-4xl font-semibold">{value}</p>
+      </div>
     </div>
   );
 }

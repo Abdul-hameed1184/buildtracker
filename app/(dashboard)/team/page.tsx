@@ -1,10 +1,16 @@
+"use client"
+
 import { MoreVertical, Plus, Users, Shield, CheckCircle, UserPlus } from "lucide-react";
 import Image from "next/image";
-import {Images} from "@/public"
+import { Images } from "@/public"
+import { useState } from "react";
+import InviteMembersModal from "@/app/components/team/modal/InviteMembersModal";
 
 export default function TeamManagementPage() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="p-6 space-y-6 bg-muted">
+      <InviteMembersModal open={open} onClose={() => setOpen(false)} />
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -13,7 +19,7 @@ export default function TeamManagementPage() {
             Manage your team members and their assignments
           </p>
         </div>
-        <button className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow">
+        <button onClick={() => setOpen(true)} className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow">
           <Plus className="h-4 w-4" />
           Invite Member
         </button>
@@ -92,6 +98,14 @@ function StatCard({
   );
 }
 
+const StatusPill = ({ status }: { status: string }) => {
+  return (
+    <span className="inline-flex rounded-lg border border-green-600/20 bg-green-500/10 px-2 py-1.5 text-xs text-green-700 dark:text-green-400">
+      {status}
+    </span>
+  )
+}
+
 function MemberCard({
   name,
   role,
@@ -113,25 +127,23 @@ function MemberCard({
     <div className="rounded-2xl bg-card shadow-sm">
       <div className="p-4">
         <div className="flex items-start justify-between">
-            <div
-      className="relative overflow-hidden rounded-xl h-20 w-20 "
-    >
-      <Image
-        src={Images.user}
-        alt="profile.pic"
-        fill
-        className="object-cover"
-      />
-    </div>
-          
+          <div
+            className="relative overflow-hidden rounded-xl h-20 w-20 "
+          >
+            <Image
+              src={Images.user}
+              alt="profile.pic"
+              fill
+              className="object-cover"
+            />
+          </div>
+
           <MoreVertical className="h-4 w-4 text-muted-foreground" />
         </div>
-          <div className="pt-4">
-              <p className="font-medium text-foreground">{name}</p>
-              <span className="inline-flex rounded-lg border border-green-600 bg-green-50 px-2 py-1.5 text-xs text-green-700">
-                Available
-              </span>
-            </div>
+        <div className="pt-4">
+          <p className="font-medium text-foreground">{name}</p>
+          <StatusPill status="Available" />
+        </div>
 
         <div className="mt-4 space-y-2 text-sm text-muted-foreground">
           <p>{email}</p>
@@ -146,8 +158,8 @@ function MemberCard({
         <span
           className={
             accessVariant === "owner"
-              ? "inline-flex rounded-lg bg-red-50 px-3 py-1.5 text-xs font-medium text-red-600 border border-red-500"
-              : "inline-flex rounded-lg bg-orange-50 px-3 py-1.5 text-xs font-medium text-orange-600"
+              ? "inline-flex rounded-lg bg-destructive/10 px-3 py-1.5 text-xs font-medium text-destructive border border-destructive"
+              : "inline-flex rounded-lg bg-orange-500/10 px-3 py-1.5 text-xs font-medium text-orange-600  dark:text-orange-400"
           }
         >
           {access}

@@ -68,22 +68,22 @@ export function DocumentCard({
       </div>
 
       {/* Overlay Sheet */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <div className="relative w-full">
+      <div className="absolute bottom-0 left-0 right-0 h-fit">
+        <div className="relative w-full h-fit">
           {/* Background Image for Sheet */}
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0 h-full">
             <Image
               src={Images.documentCover}
               alt=""
               fill
-              className="object-cover w-full"
+              className="object-cover object-top"
             />
           </div>
 
           <div className="relative z-10 px-4 pt-4 pb-3">
             {/* Floating menu */}
-            <button className="absolute right-0 top-0 flex h-9 w-9 items-center justify-center rounded-full bg-card shadow">
-              <MoreVertical className="h-4 w-4 text-muted-foreground" />
+            <button className="absolute right-7 top-5 flex h-12 w-12 items-center justify-center rounded-full bg-card shadow">
+              <MoreVertical className="h-6 w-6 text-muted-foreground" />
             </button>
 
             {/* Time */}

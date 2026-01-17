@@ -18,6 +18,8 @@ import { cn } from "@/libs/utils"
 import { FolderCard } from "@/app/components/wiki/FolderCard"
 import { DocumentCard } from "@/app/components/wiki/DocumentCard"
 import { Images } from "@/public";
+import AddNewDocumentModal from "@/app/components/wiki/modal/AddNewDocumentModal";
+import AddNewFolderModal from "@/app/components/wiki/modal/AddNewFolder";
 
 type Folder = {
   id: number;
@@ -54,8 +56,12 @@ export default function ProjectWikiPage() {
   const [showDocuments, setShowDocuments] = useState(true);
   const [gridView, setGridView] = useState(true);
 
+  const [open, setOpen] = useState(false);
+  const [openFolder, setOpenFolder] = useState(false);
+
   return (
     <div className="p-6 space-y-8 bg-muted min-h-screen">
+
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Project Wiki</h1>
@@ -164,9 +170,10 @@ export default function ProjectWikiPage() {
                 {/* Create Folder - Adapts to view */}
                 <div
                   className={cn(
-                    "flex items-center justify-center rounded-xl border border-dashed border-black bg-white text-sm text-muted-foreground hover:bg-muted hover:border-primary transition-colors cursor-pointer group ",
+                    "flex items-center justify-center rounded-xl border border-dashed border-border bg-card text-sm text-muted-foreground hover:bg-muted hover:border-primary transition-colors cursor-pointer group ",
                     gridView ? "gap-3 p-6" : "h-[82px] w-full gap-2 p-4"
                   )}
+                  onClick={() => setOpenFolder(true)}
                 >
                   <CirclePlus className="h-5 w-5 group-hover:text-primary transition-colors" />
 
@@ -226,7 +233,7 @@ export default function ProjectWikiPage() {
                     onClick={() => setGridView(false)}
                     className={cn(
                       "p-1.5 rounded-md transition-colors",
-                      !gridView ? "bg-white shadow-sm text-primary" : "text-muted-foreground hover:bg-muted"
+                      !gridView ? "bg-card shadow-sm text-primary" : "text-muted-foreground hover:bg-muted"
                     )}
                   >
                     <List className="h-4 w-4" />
@@ -235,7 +242,7 @@ export default function ProjectWikiPage() {
                     onClick={() => setGridView(true)}
                     className={cn(
                       "p-1.5 rounded-md transition-colors",
-                      gridView ? "bg-white shadow-sm text-primary" : "text-muted-foreground hover:bg-muted"
+                      gridView ? "bg-card shadow-sm text-primary" : "text-muted-foreground hover:bg-muted"
                     )}
                   >
                     <LayoutGrid className="h-4 w-4" />
@@ -254,9 +261,10 @@ export default function ProjectWikiPage() {
                 {/* Upload Document */}
                 <div
                   className={cn(
-                    "flex items-center justify-center bg-white border border-dashed border-black text-sm text-muted-foreground hover:bg-muted hover:border-primary/50 transition-colors cursor-pointer group",
+                    "flex items-center justify-center bg-card border border-dashed border-border text-sm text-muted-foreground hover:bg-muted hover:border-primary/50 transition-colors cursor-pointer group",
                     gridView ? "gap-3 rounded-[24px] min-h-[260px]" : "h-[82px] w-full gap-2 p-4 rounded-xl"
                   )}
+                  onClick={() => setOpen(true)}
                 >
                   <CirclePlus className="h-5 w-5 group-hover:text-primary transition-colors" />
                   <span className="font-medium">Upload New Document</span>
@@ -278,6 +286,8 @@ export default function ProjectWikiPage() {
           </div>
         </div>
       )}
+      <AddNewDocumentModal open={open} onClose={() => setOpen(false)} />
+      <AddNewFolderModal open={openFolder} onClose={() => setOpenFolder(false)} />
     </div>
   );
 }

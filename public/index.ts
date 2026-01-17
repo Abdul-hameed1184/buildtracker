@@ -9,17 +9,19 @@ import documentCover from "@/public/images/document cover.svg";
 import link from "@/public/images/link.svg"
 import git from "@/public/images/git.svg"
 import slack from "@/public/images/slack.svg"
+import Success from "@/public/images/success.svg"
 
 export const Images = {
   logo: Logo,
-  desktopbg: desktopbg,
-  user: user,
-  banner:banner,
+  desktopbg,
+  user,
+  banner,
   outerFolder,
   innerFolder,
   folder,
   documentCover,
   link,
   slack,
-  git
+  git,
+  Success
 };

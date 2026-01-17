@@ -1,11 +1,17 @@
+"use client"
+
 import { Plus } from "lucide-react";
 import Image from "next/image";
 
 import QuickLinkCard from "@/app/components/quick-links/QuickLinkCard"
+import AddLinksModal from "@/app/components/quick-links/modal/AddLinksModal";
+import { useState } from "react";
 
 export default function QuickLinksPage() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="p-6 space-y-6 bg-muted">
+      <AddLinksModal open={open} onClose={() => setOpen(false)} />
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -14,7 +20,8 @@ export default function QuickLinksPage() {
             Link your important resources and materials to BuildTracker
           </p>
         </div>
-        <button className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow">
+        <button className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow"
+        onClick={() => setOpen(true)}>
           <Plus className="h-4 w-4" />
           Add Custom Link
         </button>

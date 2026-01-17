@@ -46,21 +46,21 @@ const TasksPage = () => {
   }
 
   return (
-    <div className="flex h-full flex-col gap-6 p-6">
+    <div className="p-6 space-y-8 bg-muted min-h-screen">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Task Management</h1>
           <p className="text-sm text-muted-foreground">Track and manage all your project tasks</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 rounded-full border bg-white px-4 py-2 text-sm font-medium text-primary hover:bg-gray-50">
+          <button className="flex items-center gap-2 rounded-full border bg-card px-4 py-2 text-sm font-medium text-primary hover:bg-accent hover:text-accent-foreground">
             <Upload className="h-4 w-4" />
             Import CSV
           </button>
           <button
             onClick={() => setIsCreateTaskOpen(true)}
-            className="flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
+            className="flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
           >
             <Plus className="h-4 w-4" />
             New Task
@@ -69,7 +69,7 @@ const TasksPage = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center overflow-x-auto rounded-xl bg-white p-1 shadow-sm w-fit">
+      <div className="flex items-center overflow-x-auto rounded-xl bg-card p-1 shadow-sm w-fit max-w-full">
         {tabs.map((tab) => {
           const Icon = tab.icon
           const isActive = currentView === tab.id
@@ -78,9 +78,9 @@ const TasksPage = () => {
             <button
               key={tab.id}
               onClick={() => setCurrentView(tab.id)}
-              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${isActive
-                ? 'bg-gray-100 text-foreground'
-                : 'text-muted-foreground hover:bg-gray-50 hover:text-foreground'
+              className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap ${isActive
+                ? 'bg-muted text-foreground'
+                : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
                 }`}
             >
               <Icon className="h-4 w-4" />
@@ -91,7 +91,7 @@ const TasksPage = () => {
       </div>
 
       {/* Content */}
-      <div className="flex-1 rounded-2xl bg-white p-6 shadow-sm">
+      <div className="flex-1 rounded-2xl bg-card p-6 shadow-sm overflow-hidden">
         {renderView()}
       </div>
 

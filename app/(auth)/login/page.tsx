@@ -4,18 +4,16 @@ import React from 'react'
 import Link from 'next/link'
 import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
+import { Images } from '@/public'
+import Image from 'next/image'
 
 const LoginPage = () => {
     return (
-        <div className="mx-auto w-full max-w-md">
+        <div className="mx-auto w-full max-w-2xl">
             {/* Header */}
             <div className="mb-8">
-                <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                <div className="mb-6 flex h-10 w-10 items-center justify-center">
+                   <Image src={Images.logo} alt=""/>
                 </div>
                 <h1 className="mb-2 text-3xl font-bold text-foreground">Welcome Back</h1>
                 <p className="text-sm text-muted-foreground">
@@ -47,7 +45,7 @@ const LoginPage = () => {
             {/* Divider */}
             <div className="mb-6 flex items-center gap-4">
                 <div className="h-px flex-1 bg-border"></div>
-                <span className="text-xs text-muted-foreground">or continue with</span>
+                <span className="text-sm text-muted-foreground">or continue with</span>
                 <div className="h-px flex-1 bg-border"></div>
             </div>
 
@@ -66,12 +64,15 @@ const LoginPage = () => {
                     <svg className="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                     </svg>
-                    Login with Facebook
+                    Login with Apple
                 </Button>
             </div>
 
-            <div className="mt-6 text-center text-sm font-medium text-muted-foreground">
+            <div className="mt-6 text-left text-sm font-medium text-muted-foreground">
                 Don&apos;t have an account? <Link href="/signup" className="text-primary hover:underline">Sign up</Link>
+            </div>
+            <div className="mt-6 text-left text-sm font-medium text-muted-foreground">
+                forgotten your password? <Link href="/forgot-password" className="text-primary hover:underline">click here </Link>
             </div>
         </div>
     )

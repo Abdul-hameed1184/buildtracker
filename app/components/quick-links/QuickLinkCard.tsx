@@ -15,7 +15,7 @@ const QuickLinkCard = ({
 
         {/* Top */}
         <div className="flex items-center gap-3">
-          <div className="flex h-14 w-14 p-1 items-center justify-center rounded-xl border bg-white">
+          <div className="flex h-14 w-14 p-1 items-center justify-center rounded-xl border bg-card">
             {logo === "scaleforge" ? (
               <Image
                 src={Images.link}

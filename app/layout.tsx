@@ -25,6 +25,8 @@ export const metadata: Metadata = {
   description: "Project management made simple.",
 };
 
+import QueryProvider from "./providers/QueryProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,7 +38,9 @@ export default function RootLayout({
         className={`${poppins.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
-          {children}
+          <QueryProvider>
+            {children}
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

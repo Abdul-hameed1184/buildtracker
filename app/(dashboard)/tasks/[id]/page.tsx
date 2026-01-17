@@ -37,11 +37,11 @@ const TaskDetailsPage = () => {
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-2 rounded-lg border bg-white px-4 py-2 text-sm font-medium text-primary hover:bg-gray-50">
+                    <button className="flex items-center gap-2 rounded-lg border bg-card px-4 py-2 text-sm font-medium text-primary hover:bg-accent hover:text-accent-foreground">
                         <Edit className="h-4 w-4" />
                         Update Task
                     </button>
-                    <button className="flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">
+                    <button className="flex items-center gap-2 rounded-lg bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground hover:bg-destructive/90">
                         <Trash2 className="h-4 w-4" />
                         Delete
                     </button>
@@ -49,7 +49,7 @@ const TaskDetailsPage = () => {
             </div>
 
             {/* Main Content Card */}
-            <div className="flex-1 overflow-auto rounded-3xl bg-white p-8 shadow-sm">
+            <div className="flex-1 overflow-auto rounded-3xl bg-card p-8 shadow-sm">
                 <h1 className="text-2xl font-bold text-foreground">Add Notification Icon and Profile Display to Menu Tab</h1>
 
                 {/* Meta Data Grid */}
@@ -69,8 +69,8 @@ const TaskDetailsPage = () => {
 
                     {/* Due Date */}
                     <div className="flex items-center gap-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
-                            <Calendar className="h-4 w-4 text-gray-600" />
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+                            <Calendar className="h-4 w-4 text-muted-foreground" />
                         </div>
                         <div>
                             <p className="text-xs text-muted-foreground">Due Date</p>
@@ -80,13 +80,13 @@ const TaskDetailsPage = () => {
 
                     {/* Assignee */}
                     <div className="flex items-center gap-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
-                            <User className="h-4 w-4 text-gray-600" />
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+                            <User className="h-4 w-4 text-muted-foreground" />
                         </div>
                         <div>
                             <p className="text-xs text-muted-foreground">Assignee</p>
                             <div className="mt-1 flex items-center gap-2">
-                                <div className="h-5 w-5 rounded-full bg-gray-300"></div>
+                                <div className="h-5 w-5 rounded-full bg-muted-foreground/30"></div>
                                 <p className="text-sm font-medium text-foreground">Abdullah Sulaimon</p>
                             </div>
                         </div>
@@ -107,13 +107,13 @@ const TaskDetailsPage = () => {
 
                     {/* Created By */}
                     <div className="flex items-center gap-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
-                            <User className="h-4 w-4 text-gray-600" />
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted">
+                            <User className="h-4 w-4 text-muted-foreground" />
                         </div>
                         <div>
                             <p className="text-xs text-muted-foreground">Created by</p>
                             <div className="mt-1 flex items-center gap-2">
-                                <div className="h-5 w-5 rounded-full bg-gray-300"></div>
+                                <div className="h-5 w-5 rounded-full bg-muted-foreground/30"></div>
                                 <p className="text-sm font-medium text-foreground">Muaz Balogun</p>
                             </div>
                         </div>
@@ -126,8 +126,8 @@ const TaskDetailsPage = () => {
                         <AlignLeft className="h-5 w-5 text-muted-foreground" />
                         <span className="text-sm font-medium text-muted-foreground">Description</span>
                     </div>
-                    <div className="rounded-xl border bg-gray-50 p-6 text-sm leading-relaxed text-foreground">
-            To hibernate your Windows PC quickly, use the shortcut Win + X, then press U, then H (for Shutdown Menu {'>'} Hibernate). Alternatively, you can create a dedicated desktop shortcut using the command shutdown /h or rundll32.exe powrprof.dll, SetSuspendState 0,1,0 for a one-click options.
+                    <div className="rounded-xl border bg-muted/30 p-6 text-sm leading-relaxed text-foreground">
+                        To hibernate your Windows PC quickly, use the shortcut Win + X, then press U, then H (for Shutdown Menu {'>'} Hibernate). Alternatively, you can create a dedicated desktop shortcut using the command shutdown /h or rundll32.exe powrprof.dll, SetSuspendState 0,1,0 for a one-click options.
                     </div>
                 </div>
 
@@ -139,7 +139,7 @@ const TaskDetailsPage = () => {
                     </div>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                         {/* File 1 */}
-                        <div className="flex items-center gap-3 rounded-xl border bg-white p-3 hover:bg-gray-50">
+                        <div className="flex items-center gap-3 rounded-xl border bg-card p-3 hover:bg-muted/50">
                             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-500">
                                 <span className="text-xs font-bold text-red-600">PDF</span>
                             </div>
@@ -153,7 +153,7 @@ const TaskDetailsPage = () => {
                             </div>
                         </div>
                         {/* File 2 */}
-                        <div className="flex items-center gap-3 rounded-xl border bg-white p-3 hover:bg-gray-50">
+                        <div className="flex items-center gap-3 rounded-xl border bg-card p-3 hover:bg-muted/50">
                             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-500">
                                 <span className="text-xs font-bold text-red-600">PDF</span>
                             </div>
@@ -167,7 +167,7 @@ const TaskDetailsPage = () => {
                             </div>
                         </div>
                         {/* File 3 */}
-                        <div className="flex items-center gap-3 rounded-xl border bg-white p-3 hover:bg-gray-50">
+                        <div className="flex items-center gap-3 rounded-xl border bg-card p-3 hover:bg-muted/50">
                             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-500">
                                 <span className="text-xs font-bold text-red-600">PDF</span>
                             </div>
@@ -189,8 +189,8 @@ const TaskDetailsPage = () => {
                         <button
                             onClick={() => setActiveTab('comments')}
                             className={`border-b-2 pb-4 text-sm font-medium transition-colors ${activeTab === 'comments'
-                                    ? 'border-primary text-primary'
-                                    : 'border-transparent text-muted-foreground hover:text-foreground'
+                                ? 'border-primary text-primary'
+                                : 'border-transparent text-muted-foreground hover:text-foreground'
                                 }`}
                         >
                             Comments <span className="ml-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-600">8</span>
@@ -198,8 +198,8 @@ const TaskDetailsPage = () => {
                         <button
                             onClick={() => setActiveTab('blockers')}
                             className={`border-b-2 pb-4 text-sm font-medium transition-colors ${activeTab === 'blockers'
-                                    ? 'border-primary text-primary'
-                                    : 'border-transparent text-muted-foreground hover:text-foreground'
+                                ? 'border-primary text-primary'
+                                : 'border-transparent text-muted-foreground hover:text-foreground'
                                 }`}
                         >
                             Blockers
@@ -207,8 +207,8 @@ const TaskDetailsPage = () => {
                         <button
                             onClick={() => setActiveTab('subtasks')}
                             className={`border-b-2 pb-4 text-sm font-medium transition-colors ${activeTab === 'subtasks'
-                                    ? 'border-primary text-primary'
-                                    : 'border-transparent text-muted-foreground hover:text-foreground'
+                                ? 'border-primary text-primary'
+                                : 'border-transparent text-muted-foreground hover:text-foreground'
                                 }`}
                         >
                             Sub Task <span className="ml-1 rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-600">8</span>

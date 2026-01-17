@@ -13,7 +13,7 @@ const IntegrationCard = () => {
       {/* Card Body */}
       <div className="p-4">
         <div className="flex items-start gap-3">
-          <div className="flex h-14 w-14 p-1 items-center justify-center rounded-xl border bg-white">
+          <div className="flex h-14 w-14 p-1 items-center justify-center rounded-xl border bg-card">
             <Image
               src={Images.logo}
               alt="Buildtracker"
