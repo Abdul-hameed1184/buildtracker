@@ -42,7 +42,9 @@ export function OtpInput({ length = 4, onComplete }: OtpInputProps) {
             {otp.map((value, index) => (
                 <input
                     key={index}
-                    ref={(el) => (inputsRef.current[index] = el)}
+                    ref={(el) => {
+                        inputsRef.current[index] = el;
+                    }}
                     type="text"
                     inputMode="numeric"
                     maxLength={1}
@@ -55,6 +57,7 @@ export function OtpInput({ length = 4, onComplete }: OtpInputProps) {
                         index === length - 1 && "bg-gray-50"
                     )}
                 />
+
             ))}
         </div>
     );

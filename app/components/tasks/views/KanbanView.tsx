@@ -178,6 +178,7 @@ function KanbanColumn({
   items,
 }: {
   title: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any;
   columnId: ColumnId;
   items: Ticket[];
