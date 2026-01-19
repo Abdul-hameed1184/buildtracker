@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Task, INITIAL_TASKS, TaskStatus, TaskPriority } from "@/app/constants/tasks";
+import Image from "next/image";
 import { CheckCircle2, Clock, Paperclip, MessageSquare, MoreHorizontal } from "lucide-react";
 import { Badge } from "@/app/components/ui/badge";
 
@@ -69,7 +70,14 @@ const ListView = () => {
                             </td>
                             <td className="px-4 py-4 border-b">
                                 <div className="flex items-center gap-2">
-                                    <img src={task.owner.avatar} alt={task.owner.name} className="h-7 w-7 rounded-full object-cover" />
+                                    <div className="relative h-7 w-7 rounded-full overflow-hidden">
+                                        <Image
+                                            src={task.owner.avatar}
+                                            alt={task.owner.name}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
                                     <span className="text-muted-foreground">{task.owner.name}</span>
                                 </div>
                             </td>

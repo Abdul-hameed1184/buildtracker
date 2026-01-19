@@ -1,4 +1,5 @@
-import {Images} from "@/public"
+import { Images } from "@/public"
+import { StaticImageData } from "next/image";
 
 export type TaskStatus = "Pending" | "In Progress" | "Completed";
 export type TaskPriority = "High" | "Medium" | "Low";
@@ -12,7 +13,7 @@ export interface Task {
     priority: TaskPriority;
     owner: {
         name: string;
-        avatar: string;
+        avatar: string | StaticImageData;
     };
     dueDate: string; // Used for "Date" in Kanban and "Timeline date" in List
     tags: string[]; // Can represent the counts or tags as seen in UI
