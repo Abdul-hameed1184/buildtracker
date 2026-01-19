@@ -21,7 +21,9 @@ export default function TeamManagementPage() {
         </div>
         <button onClick={() => setOpen(true)} className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow">
           <Plus className="h-4 w-4" />
-          Invite Member
+          Invite <span className="hidden md:flex">
+            Member
+          </span>
         </button>
       </div>
 

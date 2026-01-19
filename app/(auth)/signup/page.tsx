@@ -13,11 +13,11 @@ const LoginPage = () => {
             {/* Header */}
             <div className="mb-8">
                 <div className="mb-6 flex h-10 w-10 items-center justify-center">
-                   <Image src={Images.logo} alt=""/>
+                    <Image src={Images.logo} alt="" />
                 </div>
-                <h1 className="mb-2 text-3xl font-bold text-foreground">Create and account</h1>
+                <h1 className="mb-2 text-3xl font-bold text-foreground">Create an account</h1>
                 <p className="text-sm text-muted-foreground">
-                    Log in to continue shopping, track your orders, and access your personalized dashboard. We&apos;re glad to have you back!
+                    Join thousands of teams managing their build pipelines with ease. Start your free trial today and experience the difference.
                 </p>
             </div>
 
@@ -45,7 +45,7 @@ const LoginPage = () => {
                     />
                 </div>
                 <Button className="mt-2 w-full text-base" size="lg">
-                    Sign up 
+                    Sign up
                 </Button>
             </form>
 

@@ -20,128 +20,49 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-import { Card, CardContent, CardHeader } from "@/app/components/ui/card";
-import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
-import { Plus, Calendar, CheckCircle2, Loader2, Clock } from "lucide-react";
-
-
+import { Plus, CheckCircle2, Loader2, Clock } from "lucide-react";
 
 function cn(...classes: (string | undefined | false)[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
+import { Task, INITIAL_TASKS, TaskStatus } from "@/app/constants/tasks";
+import { TaskCard } from "../TaskCard";
+
 // -------------------- Types --------------------
 type ColumnId = "pending" | "inProgress" | "completed";
 
-interface Ticket {
-  id: string;
-  ticket: string;
-  title: string;
-  description: string;
-  date: string;
-  priority: "High" | "Medium" | "Low";
-}
-
-// -------------------- Initial Data --------------------
-const initialData: Record<ColumnId, Ticket[]> = {
-  pending: [
-    {
-      id: "1",
-      ticket: "Ticket #4",
-      title: "Add Notification Icon and Profile Display to Menu Tab",
-      description:
-        "We need to introduce a new feature called Notifications, along with a new top navigation layout.",
-      date: "12 Dec",
-      priority: "High",
-    },
-  ],
-  inProgress: [
-    {
-      id: "2",
-      ticket: "Ticket #4",
-      title: "Add Notification Icon and Profile Display to Menu Tab",
-      description:
-        "We need to introduce a new feature called Notifications, along with a new top navigation layout.",
-      date: "12 Dec",
-      priority: "Low",
-    },
-    {
-      id: "3",
-      ticket: "Ticket #4",
-      title: "Add Notification Icon and Profile Display to Menu Tab",
-      description:
-        "We need to introduce a new feature called Notifications, along with a new top navigation layout.",
-      date: "12 Dec",
-      priority: "High",
-    },
-  ],
-  completed: [
-    {
-      id: "4",
-      ticket: "Ticket #4",
-      title: "Add Notification Icon and Profile Display to Menu Tab",
-      description:
-        "We need to introduce a new feature called Notifications, along with a new top navigation layout.",
-      date: "12 Dec",
-      priority: "Medium",
-    },
-  ],
+const statusMapping: Record<ColumnId, TaskStatus> = {
+  pending: "Pending",
+  inProgress: "In Progress",
+  completed: "Completed",
 };
 
-const priorityStyles: Record<Ticket["priority"], string> = {
-  High: "bg-red-100 text-red-600",
-  Medium: "bg-orange-100 text-orange-600",
-  Low: "bg-green-100 text-green-600",
+const reverseStatusMapping: Record<TaskStatus, ColumnId> = {
+  "Pending": "pending",
+  "In Progress": "inProgress",
+  "Completed": "completed",
+};
+
+// -------------------- Initial Data mapping --------------------
+const getInitialData = (): Record<ColumnId, Task[]> => {
+  const data: Record<ColumnId, Task[]> = {
+    pending: [],
+    inProgress: [],
+    completed: [],
+  };
+
+  INITIAL_TASKS.forEach((task) => {
+    const colId = reverseStatusMapping[task.status];
+    data[colId].push(task);
+  });
+
+  return data;
 };
 
 // -------------------- Sortable Card --------------------
-function TicketCard({ ticket }: { ticket: Ticket }) {
-  return (
-    <Card className="rounded-2xl shadow-sm bg-card border">
-      <CardHeader className="pb-2">
-        <span className="text-xs text-primary font-medium">
-          {ticket.ticket}
-        </span>
-        <h3 className="text-sm font-semibold leading-snug">{ticket.title}</h3>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <p className="text-xs text-muted-foreground leading-relaxed">
-          {ticket.description}
-        </p>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Calendar className="h-3.5 w-3.5" />
-            {ticket.date}
-          </div>
-          <Badge
-            className={cn(
-              "rounded-full px-2 py-0.5 text-xs",
-              priorityStyles[ticket.priority]
-            )}
-          >
-            {ticket.priority}
-          </Badge>
-        </div>
-
-        <div className="flex items-center justify-between pt-2 border-t">
-          <div className="h-7 w-7 rounded-full bg-muted" />
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <CheckCircle2 className="h-3.5 w-3.5" /> 3
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5" /> 2
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-function SortableTicket({ ticket }: { ticket: Ticket }) {
+function SortableTicket({ ticket }: { ticket: Task }) {
   const {
     attributes,
     listeners,
@@ -165,7 +86,7 @@ function SortableTicket({ ticket }: { ticket: Ticket }) {
       {...listeners}
       className="cursor-grab active:cursor-grabbing"
     >
-      <TicketCard ticket={ticket} />
+      <TaskCard task={ticket} />
     </div>
   );
 }
@@ -181,31 +102,32 @@ function KanbanColumn({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any;
   columnId: ColumnId;
-  items: Ticket[];
+  items: Task[];
 }) {
   const { setNodeRef } = useDroppable({ id: columnId });
 
   return (
-    <div className="flex flex-col bg-background rounded-2xl p-4 w-full h-[calc(100vh-12rem)]">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2 font-semibold">
-          <Icon className="h-4 w-4 text-primary" />
+    <div className="flex flex-col bg-white dark:bg-muted/10 rounded-2xl p-4 w-full min-w-[320px] md:min-w-0 h-fit border border-border">
+      <div className="flex items-center justify-between mb-5 px-1">
+        <div className="flex items-center gap-2 font-bold text-foreground text-base">
+          <Icon className="h-5 w-5 text-primary" />
           {title}
+          <span className="text-muted-foreground font-medium ml-1 text-sm">({items.length})</span>
         </div>
-        <Button size="icon" variant="ghost" className="h-8 w-8">
+        <Button size="icon" variant="ghost" className="h-8 w-8 text-primary">
           <Plus className="h-4 w-4" />
         </Button>
       </div>
 
       <div
         ref={setNodeRef}
-        className="flex-1 overflow-y-auto overflow-x-hidden pr-2 scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/40"
+        className="flex-1 pr-1"
       >
         <SortableContext
           items={items.map((i) => i.id)}
           strategy={verticalListSortingStrategy}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             {items.map((item) => (
               <SortableTicket key={item.id} ticket={item} />
             ))}
@@ -218,7 +140,7 @@ function KanbanColumn({
 
 // -------------------- Board --------------------
 export default function KanbanBoard() {
-  const [columns, setColumns] = useState(initialData);
+  const [columns, setColumns] = useState(getInitialData());
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const sensors = useSensors(
@@ -237,7 +159,7 @@ export default function KanbanBoard() {
     );
   }
 
-  function findTicketById(id: string): Ticket | undefined {
+  function findTicketById(id: string): Task | undefined {
     for (const col of Object.keys(columns) as ColumnId[]) {
       const ticket = columns[col].find((t) => t.id === id);
       if (ticket) return ticket;
@@ -283,10 +205,13 @@ export default function KanbanBoard() {
       const index = sourceItems.findIndex((i) => i.id === activeId);
       const [moved] = sourceItems.splice(index, 1);
 
+      // Update task status when moving between columns
+      const updatedTask = { ...moved, status: statusMapping[targetCol] };
+
       setColumns({
         ...columns,
         [sourceCol]: sourceItems,
-        [targetCol]: [moved, ...targetItems],
+        [targetCol]: [updatedTask, ...targetItems],
       });
     }
   }
@@ -300,10 +225,10 @@ export default function KanbanBoard() {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto pb-4 md:pb-0 scrollbar-thin p-6 bg-muted">
         <KanbanColumn
           title="Pending"
-          icon={Loader2}
+          icon={Loader2} 
           columnId="pending"
           items={columns.pending}
         />
@@ -322,8 +247,8 @@ export default function KanbanBoard() {
       </div>
       <DragOverlay>
         {activeTicket ? (
-          <div className="cursor-grabbing rotate-3">
-            <TicketCard ticket={activeTicket} />
+          <div className="cursor-grabbing rotate-2 scale-105 transition-transform">
+            <TaskCard task={activeTicket} />
           </div>
         ) : null}
       </DragOverlay>

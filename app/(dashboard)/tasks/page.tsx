@@ -91,7 +91,7 @@ const TasksPage = () => {
       </div>
 
       {/* Content */}
-      <div className="flex-1 rounded-2xl bg-card p-6 shadow-sm overflow-hidden">
+      <div className="flex-1 rounded-2xl bg-card overflow-hidden">
         {renderView()}
       </div>
 
