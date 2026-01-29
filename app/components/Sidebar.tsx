@@ -15,6 +15,7 @@ import {
   Plus,
   Menu,
   X,
+  Bell,
 } from "lucide-react";
 import { Images } from "@/public";
 import { useRouter, usePathname } from "next/navigation";
@@ -28,6 +29,8 @@ const navItems = [
   { label: "Integrations", icon: Plug, link: "/integrations" },
   { label: "Modules", icon: Boxes, link: "/modules" },
   { label: "Reports", icon: BarChart3, link: "/reports" },
+  { label: "Activity Logs", icon: LayoutDashboard, link: "/activity-logs" },
+  { label: "Notifications", icon: Bell, link: "/notifications" },
 ];
 export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(false);

@@ -9,7 +9,7 @@ import InviteMembersModal from "@/app/components/team/modal/InviteMembersModal";
 export default function TeamManagementPage() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="p-6 space-y-6 bg-muted">
+    <div className="p-6 space-y-6 bg-muted min-h-full">
       <InviteMembersModal open={open} onClose={() => setOpen(false)} />
       {/* Header */}
       <div className="flex items-center justify-between">

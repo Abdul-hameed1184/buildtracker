@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Search, Bell, Moon, Settings, Sun } from "lucide-react";
 import { Images } from "@/public";
 import { useTheme } from "next-themes";
@@ -29,11 +30,13 @@ export default function TopBar() {
 
         {/* Right actions */}
         <div className="flex items-center gap-2 md:gap-3">
-          <button className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition">
-            <Bell className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
-          </button>
+          <Link href="/notifications">
+            <button className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition">
+              <Bell className="w-4 h-4 md:w-5 md:h-5 text-foreground" />
+            </button>
+          </Link>
 
-          <button 
+          <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-muted transition hidden sm:flex"
           >
